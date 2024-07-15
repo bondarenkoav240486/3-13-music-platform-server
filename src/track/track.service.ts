@@ -22,9 +22,15 @@ export class TrackService {
         return track;
     }
 
-    async getAll(count = 10, offset = 0): Promise<Track[]> {
+    // async getAll(count = 10, offset = 0): Promise<Track[]> {
+    //     const tracks = await this.trackModel.find().skip(Number(offset)).limit(Number(count));
+    //     return tracks;
+    // }
+    async getAll(count = 10, offset = 0): Promise<{ data: Track[], total: number }> {
+        console.log(11111)
         const tracks = await this.trackModel.find().skip(Number(offset)).limit(Number(count));
-        return tracks;
+        const total = await this.trackModel.countDocuments();
+        return { data: tracks, total };
     }
 
     async getOne(id: ObjectId): Promise<Track> {
