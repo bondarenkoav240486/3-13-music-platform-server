@@ -24,14 +24,15 @@ const start = async () => {
         const PORT = process.env.PORT || 5000;
         const app = await NestFactory.create(AppModule);
 
-        const corsOptions = {
-            origin: 'http://ec2-18-159-169-138.eu-central-1.compute.amazonaws.com:3313',
-            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-            credentials: true,
-            optionsSuccessStatus: 204
-        };
+        // const corsOptions = {
+        //     origin: 'http://ec2-18-159-169-138.eu-central-1.compute.amazonaws.com:3313',
+        //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        //     credentials: true,
+        //     optionsSuccessStatus: 204
+        // };
 
-        app.enableCors(corsOptions);
+        // app.enableCors(corsOptions);
+        app.enableCors();
 
         await app.listen(PORT, () => console.log(`Server started on PORT ${PORT}`));
     } catch (e) {

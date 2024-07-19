@@ -27,7 +27,6 @@ export class TrackService {
     //     return tracks;
     // }
     async getAll(count = 10, offset = 0): Promise<{ data: Track[], total: number }> {
-        console.log(11111)
         const tracks = await this.trackModel.find().skip(Number(offset)).limit(Number(count));
         const total = await this.trackModel.countDocuments();
         return { data: tracks, total };
@@ -65,11 +64,19 @@ export class TrackService {
 
     }
 
-    async search(query: string): Promise<Track[]> {
+    async search(query: string, count = 10, offset = 0): Promise<{data: Track[], total: number}> {
+        // const tracks = await this.trackModel.find().skip(Number(offset)).limit(Number(count));
+
         const tracks = await this.trackModel.find({
             name: { $regex: new RegExp(query, 'i') }
-        })
-        return tracks;
+        }).skip(Number(offset)).limit(Number(count));
+
+        // const total = await this.trackModel.countDocuments();
+        const total = await this.trackModel.find({
+            name: { $regex: new RegExp(query, 'i') }
+        }).countDocuments();
+        // return tracks;
+        return { data: tracks, total };
     }
 
 }
