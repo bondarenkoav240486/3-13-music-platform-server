@@ -16,9 +16,14 @@ export class TrackService {
         private fileService: FileService) { }
 
     async create(dto: CreateTrackDto, picture, audio): Promise<Track> {
+        // const audioPath = this.fileService.createFile(FileType.AUDIO, audio);
+        // const picturePath = this.fileService.createFile(FileType.IMAGE, picture);
+        // const track = await this.trackModel.create({ ...dto, listens: 0, audio: audioPath, picture: picturePath })
+        // return track;
+
         const audioPath = this.fileService.createFile(FileType.AUDIO, audio);
         const picturePath = this.fileService.createFile(FileType.IMAGE, picture);
-        const track = await this.trackModel.create({ ...dto, listens: 0, audio: audioPath, picture: picturePath })
+        const track = await this.trackModel.create({ ...dto, listens: 0, audio: audioPath, picture: picturePath });
         return track;
     }
 
@@ -64,7 +69,7 @@ export class TrackService {
 
     }
 
-    async search(query: string, count = 10, offset = 0): Promise<{data: Track[], total: number}> {
+    async search(query: string, count = 10, offset = 0): Promise<{ data: Track[], total: number }> {
         // const tracks = await this.trackModel.find().skip(Number(offset)).limit(Number(count));
 
         const tracks = await this.trackModel.find({

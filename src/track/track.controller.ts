@@ -16,7 +16,19 @@ export class TrackController {
         { name: 'audio', maxCount: 1 },
     ]))
     create(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
-        const { picture, audio } = files
+        // const { picture, audio } = files
+        // return this.trackService.create(dto, picture[0], audio[0]);
+
+        const { picture, audio } = files;
+        
+        if (!picture || !picture.length) {
+            throw new Error('Picture file is missing');
+        }
+
+        if (!audio || !audio.length) {
+            throw new Error('Audio file is missing');
+        }
+
         return this.trackService.create(dto, picture[0], audio[0]);
     }
 
