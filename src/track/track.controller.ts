@@ -49,6 +49,10 @@ export class TrackController {
         return this.trackService.getOne(id);
     }
 
+    // @Delete(':id')
+    // delete(@Param('id') id: ObjectId) {
+    //     return this.trackService.delete(id);
+    // }
     @Delete(':id')
     delete(@Param('id') id: ObjectId) {
         return this.trackService.delete(id);

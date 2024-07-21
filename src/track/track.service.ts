@@ -42,9 +42,17 @@ export class TrackService {
         return track;
     }
 
+    // async delete(id: ObjectId): Promise<ObjectId> {
+    //     const track = await this.trackModel.findByIdAndDelete(id);
+    //     return track._id
+    // }
     async delete(id: ObjectId): Promise<ObjectId> {
         const track = await this.trackModel.findByIdAndDelete(id);
-        return track._id
+        if (track) {
+            this.fileService.removeFile(track.audio);
+            this.fileService.removeFile(track.picture);
+        }
+        return track._id;
     }
 
     async addComment(dto: CreateCommentDto): Promise<Comment> {
